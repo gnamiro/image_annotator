@@ -179,7 +179,11 @@ class Module:
         # save data automatically 
         self.saveDataAutomatically(((imageInfoName, self.imagesInfo), (circleRegionInfo, self.imageCircleRegions), (boxRegionInfo, self.imageBoxRegions), (polygonInfo, self.imagePolygonRegions)))
         
-
+    def handleActiveImageData(self, data):
+        imageData = self.getImageData(data)
+        self.imagesInfo = self.saveRegionInDB(self.imagesInfo, 'image-src', imageData['image-src'][0], imageData, 0)
+        
+        self.imagesInfo.to_csv(imageInfoName, index=False)
 
     
     def __str__(self):
