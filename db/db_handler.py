@@ -181,6 +181,7 @@ class Module:
         
     def handleActiveImageData(self, data):
         imageData = self.getImageData(data)
+        print(data)
         self.imagesInfo = self.saveRegionInDB(self.imagesInfo, 'image-src', imageData['image-src'][0], imageData, 0)
         
         self.imagesInfo.to_csv(imageInfoName, index=False)

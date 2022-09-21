@@ -12,7 +12,7 @@ import os
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-CORS(app, resources={r"/": {"origins": "localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "localhost:3000"}})
 dbModule = Module()
 path = './react-image-annotate/public/images/images'
 
@@ -29,12 +29,13 @@ def save_annotate_info():
     pass
 
 @app.route('/activeImage', methods=['POST'])
-@cross_origin(origins='localhost', headers=['Content-Type'])
+@cross_origin(origins='*', headers=['Content-Type'])
 def save_active_image_info():
     try:
         request_data = request.get_json()
         print(request_data)
         dbModule.handleActiveImageData(request_data)
+        return 'got it '
     except AssertionError:
         print('error')
 
