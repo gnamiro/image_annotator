@@ -7,6 +7,7 @@ from flask import Flask
 from flask import jsonify, request
 from flask_cors import CORS, cross_origin
 from db.db_handler import Module
+import numpy as np
 import os
 
 app = Flask(__name__)
@@ -47,11 +48,23 @@ def get_images_name():
         imagesName = []
         for(root, dirs, file) in os.walk(path):
             for f in file:
+                dictionary = {}
                 if ('.png' in f) or ('.jpg' in f) or ('.jpeg' in f):
-                    imagesName.append(f)
+                    dictionary['image-name'] = f
+                    imageIndex = dbModule.findInfoInDb(dbModule.imagesInfo, 'image-src', './images/images/'+f)
+                    print(imageIndex)
+                    if (imageIndex is not None):
+                        dictionary['comment'] = dbModule.imagesInfo.at[imageIndex, 'comment']
+                        dictionary['cls'] = dbModule.imagesInfo.at[imageIndex, 'selected-classes']
+                        print(dictionary['cls'])
+                        dictionary['cls'] = dictionary['cls'].split(";") if dictionary['cls'] is not np.nan else []
+
+                    imagesName.append(dictionary)
+
         
-        # print(imagesName)
+        print(imagesName)
         response = jsonify({'imagesName': imagesName})
+        print(response)
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     except AssertionError:
