@@ -100,6 +100,7 @@ class Module:
         print(index)
         if index is not None:
             print('data founded', idColumn, uuid.UUID)
+            print(data)
             for key, value in data.items():
                 _value = value[0] if status == 0 else value
                 database.at[index, key] = _value
@@ -151,7 +152,7 @@ class Module:
         pixelSize = data['pixelSize'] if 'pixelSize' in data else {}
         imageData['image-original-height'] = [pixelSize['h']] if pixelSize != {} else []
         imageData['image-original-width'] = [pixelSize['w']] if pixelSize != {} else []
-        imageData['processed'] = 1
+        imageData['processed'] = [1]
         
         return imageData
     
