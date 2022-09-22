@@ -54,10 +54,11 @@ def get_images_name():
                     imageIndex = dbModule.findInfoInDb(dbModule.imagesInfo, 'image-src', './images/images/'+f)
                     print(imageIndex)
                     if (imageIndex is not None):
-                        dictionary['comment'] = dbModule.imagesInfo.at[imageIndex, 'comment']
+                        comment = dbModule.imagesInfo.at[imageIndex, 'comment']
+                        dictionary['comment'] = comment if comment is not np.nan else '' 
                         dictionary['cls'] = dbModule.imagesInfo.at[imageIndex, 'selected-classes']
                         print(dictionary['cls'])
-                        dictionary['cls'] = dictionary['cls'].split(";") if dictionary['cls'] is not np.nan else []
+                        dictionary['cls'] = dictionary['cls']if dictionary['cls'] is not np.nan else ''
 
                     imagesName.append(dictionary)
 
