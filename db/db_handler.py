@@ -16,7 +16,7 @@ class Module:
     def __init__(self):
         print('initialization')
         self.imagesInfo = pd.DataFrame(
-            columns=['image-name', 'selected-classes', 'comment', 'image-original-height', 'image-original-width', 'image-src']
+            columns=['image-name', 'selected-classes', 'comment', 'image-original-height', 'image-original-width', 'image-src', 'processed']
         )
         self.imageCircleRegions = pd.DataFrame(
             columns=['region-id', 'image-src', 'class', 'comment', 'tags', 'rx', 'ry', 'rw', 'rh']
@@ -151,6 +151,7 @@ class Module:
         pixelSize = data['pixelSize'] if 'pixelSize' in data else {}
         imageData['image-original-height'] = [pixelSize['h']] if pixelSize != {} else []
         imageData['image-original-width'] = [pixelSize['w']] if pixelSize != {} else []
+        imageData['processed'] = 1
         
         return imageData
     

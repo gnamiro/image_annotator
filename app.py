@@ -59,6 +59,9 @@ def get_images_name():
                         dictionary['cls'] = dbModule.imagesInfo.at[imageIndex, 'selected-classes']
                         print(dictionary['cls'])
                         dictionary['cls'] = dictionary['cls']if dictionary['cls'] is not np.nan else ''
+                        dictionary['processed'] = True
+                    else:
+                        dictionary['processed'] = False
 
                     imagesName.append(dictionary)
 

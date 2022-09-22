@@ -1,11 +1,10 @@
-image-name,selected-classes,comment,image-original-height,image-original-width,image-src
-2_06032017901_1.jpg,,,546,820,./images/images/2_06032017901_1.jpg
-dr_reza_rostami.png,DR;Retinal Vascular Disorder,salam,300,300,./images/images/dr_reza_rostami.png
-retina.png,Others,tamam,1068,1078,./images/images/retina.png
-UT.png,DR;Retinal Vascular Disorder,khb daneshgah tehran,1332,2398,./images/images/UT.png
-2_06032012106_2.jpg,DR;AMD;Retinal Vascular Disorder;Glaucoma,alo,1824,2736,./images/images/2_06032012106_2.jpg
-2_06032012201_2.jpg,,,1824,2736,./images/images/2_06032012201_2.jpg
-naeem_ghahramanpour.jpeg,Retinal Vascular Disorder;DR,fdgfh,165,165,./images/images/naeem_ghahramanpour.jpeg
-dr_masoudnia.jpeg,Retinal Vascular Disorder;Glaucoma,masoudnia,180,180,./images/images/dr_masoudnia.jpeg
-ali_hedayatnia.jpeg,DR,"ali hedayatnia
-2222222222222222",400,400,./images/images/ali_hedayatnia.jpeg
+image-name,selected-classes,comment,image-original-height,image-original-width,image-src,processed
+2_06032012106_2.jpg,,,1824,2736,./images/images/2_06032012106_2.jpg,1
+2_06032012201_2.jpg,,,1824,2736,./images/images/2_06032012201_2.jpg,1
+2_06032017901_1.jpg,,,546,820,./images/images/2_06032017901_1.jpg,1
+ali_hedayatnia.jpeg,,,400,400,./images/images/ali_hedayatnia.jpeg,1
+dr_masoudnia.jpeg,,,180,180,./images/images/dr_masoudnia.jpeg,1
+dr_reza_rostami.png,,,300,300,./images/images/dr_reza_rostami.png,1
+dr_vahabi.png,,,760,760,./images/images/dr_vahabi.png,1
+naeem_ghahramanpour.jpeg,,,165,165,./images/images/naeem_ghahramanpour.jpeg,1
+retina.png,,,1068,1078,./images/images/retina.png,1
