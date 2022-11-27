@@ -1,4 +1,5 @@
 from crypt import methods
+import dbm
 from email import header
 from urllib import response
 from urllib.robotparser import RequestRate
@@ -40,11 +41,14 @@ def save_active_image_info():
     except AssertionError:
         print('error')
 
-@app.route('/imagesName', methods=['GET'])
-@cross_origin(origins='localhost', headers=['Content-Type'])
+@app.route('/imagesName', methods=['POST'])
+@cross_origin(origins='*', headers=['Content-Type'])
 def get_images_name():
     global path
     try:
+        request_data = request.get_json()
+        print(request_data)
+        dbModule.createCategories(request_data['params']['labels'])
         imagesName = []
         for(root, dirs, file) in os.walk(path):
             for f in file:
@@ -52,14 +56,14 @@ def get_images_name():
                 if ('.png' in f) or ('.jpg' in f) or ('.jpeg' in f):
                     dictionary['image-name'] = f
                     imageIndex = dbModule.findInfoInDb(dbModule.imagesInfo, 'image-src', './images/images/'+f)
-                    print(imageIndex)
+                    # print(imageIndex)
                     if (imageIndex is not None):
                         comment = str(dbModule.imagesInfo.at[imageIndex, 'comment'])
                         dictionary['comment'] = comment if comment != "nan" else '' 
                         dictionary['cls'] = str(dbModule.imagesInfo.at[imageIndex, 'selected-classes'])
                         
                         dictionary['cls'] = dictionary['cls'] if dictionary['cls'] != "nan" else ''
-                        print(dictionary['cls'])
+                        # print(dictionary['cls'])
                         dictionary['processed'] = True
                     else:
                         dictionary['processed'] = False
@@ -70,7 +74,7 @@ def get_images_name():
         print(imagesName)
         response = jsonify({'imagesName': imagesName})
         print(response)
-        response.headers.add('Access-Control-Allow-Origin', '*')
+        # response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     except AssertionError:
         print('error')

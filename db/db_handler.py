@@ -2,6 +2,7 @@ import os
 import pandas as pd
 import numpy as np
 import uuid
+from db.category_handler import create_categories, remove_image_folder, add_image_folder
 
 imageInfoName = './db/database/imageInfo.csv'
 circleRegionInfo = './db/database/circleRegionInfo.csv'
@@ -98,17 +99,41 @@ class Module:
         
         index = self.findInfoInDb(database, idColumn, uid)
         print(index)
-        if index is not None:
+        if index is not None: # set -> diff -> list 
             print('data founded', idColumn, uuid.UUID)
             print(data)
+
+            new_cat_set = set(data['selected-classes'][0].split(';'))
+            old_cat_set = set(database.loc[index, 'selected-classes'].split(';'))
+            
             for key, value in data.items():
                 _value = value[0] if status == 0 else value
                 database.at[index, key] = _value
-        else:
+            
+            
+            print('debuggggggg')
+            print(old_cat_set)
+            print(new_cat_set)
+            add_, remove_ = get_lists_absolute(new_cat_set, old_cat_set)
+            print(add_)
+            print(remove_)
+            print('endline')
+            for new_ in add_:
+                add_image_folder(new_, data['image-name'][0])
+            
+            for old_ in remove_:
+                remove_image_folder(old_, data['image-name'][0])
+
+        else: # add whole categ
             # print(data)
             df = pd.DataFrame.from_dict(data)
             database = pd.concat([database, df], ignore_index=True)
             # print(database.head())
+            
+            for class_ in data['selected-classes'][0].split(';'):
+                if class_ != '':
+                    add_image_folder(class_, data['image-name'][0])
+
         return database
     
     def circleRegion(self, regionData, data):
@@ -188,6 +213,18 @@ class Module:
         
         self.imagesInfo.to_csv(imageInfoName, index=False)
 
-    
+    def createCategories(self, labels):
+        print(labels)
+        if labels is None:
+            return
+
+        create_categories(labels)
+        
+        
+        
     def __str__(self):
         return 'database'  
+
+
+def get_lists_absolute(new_set, old_set):
+    return list(new_set - old_set), list(old_set - new_set)
